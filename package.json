@@ -1,0 +1,22 @@
+{
+  "name": "nec-team-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-pages.mjs",
+    "predev": "npm run generate",
+    "dev": "vite --host 0.0.0.0",
+    "prebuild": "npm run generate",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^5.0.2",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.3"
+  }
+}
