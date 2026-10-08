@@ -1,4 +1,10 @@
 export const getBase = () => {
+  if (typeof window !== 'undefined' && window.location.pathname.startsWith('/necTeam-official')) {
+    return '/necTeam-official/';
+  }
+  if (typeof process !== 'undefined' && process.env?.GITHUB_PAGES) {
+    return '/necTeam-official/';
+  }
   if (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) {
     return import.meta.env.BASE_URL;
   }
@@ -22,5 +28,7 @@ export const site = {
   githubPages: 'https://hamimneo.github.io/necTeam-official/',
   updated: 'October 8, 2026',
   version: '1.0.2',
-  logo: '/assets/app-icon.png',
+  get logo() {
+    return asset('assets/app-icon.png');
+  },
 };

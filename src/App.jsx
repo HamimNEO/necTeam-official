@@ -40,7 +40,22 @@ function Link({ href, onClick, children, ...props }) {
   }}>{children}</a>;
 }
 function Brand() {
-  return <Link href="/" className="brand" aria-label="NEC TEAM home"><img src={site.logo} width="42" height="42" alt="NEC TEAM logo" /><span>NEC TEAM<small>by NEONECY</small></span></Link>;
+  return (
+    <Link href="/" className="brand" aria-label="NEC TEAM home">
+      <img
+        src={site.logo}
+        width="42"
+        height="42"
+        alt="NEC TEAM logo"
+        onError={(e) => {
+          if (!e.target.src.includes('/necTeam-official/')) {
+            e.target.src = '/necTeam-official/assets/app-icon.png';
+          }
+        }}
+      />
+      <span>NEC TEAM<small>by NEONECY</small></span>
+    </Link>
+  );
 }
 function Header({ openStore }) {
   const [menu, setMenu] = useState(false);
@@ -367,7 +382,7 @@ function Footer() {
 function ComingSoon({ platform, close }) {
   const dialog = useRef(null);
   useEffect(() => { const element = dialog.current; element.showModal(); return () => element.close(); }, []);
-  return <dialog ref={dialog} className="coming-soon-dialog" aria-labelledby="coming-soon-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}><div className="dialog-content"><button className="icon-button dialog-close" onClick={close} aria-label="Close coming soon message"><Icon name="x" /></button><img className="dialog-logo" src={site.logo} alt="NEC TEAM logo" width="70" height="70" /><div className="release-pill">A little more time. A better experience.</div><h2 id="coming-soon-title">Coming soon.</h2><p>{platform === 'NEC TEAM' ? 'NEC TEAM is getting ready for its public release on Android and iOS.' : `NEC TEAM is not publicly available on ${platform} yet.`} We’re putting the finishing touches on a clearer workday.</p><button className="button button-primary" autoFocus onClick={close}>Got it <Icon name="check" size={18} /></button><small>Internal and closed testing are invitation-only.</small></div></dialog>;
+  return <dialog ref={dialog} className="coming-soon-dialog" aria-labelledby="coming-soon-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}><div className="dialog-content"><button className="icon-button dialog-close" onClick={close} aria-label="Close coming soon message"><Icon name="x" /></button><img className="dialog-logo" src={site.logo} alt="NEC TEAM logo" width="70" height="70" onError={(e) => { if (!e.target.src.includes('/necTeam-official/')) { e.target.src = '/necTeam-official/assets/app-icon.png'; } }} /><div className="release-pill">A little more time. A better experience.</div><h2 id="coming-soon-title">Coming soon.</h2><p>{platform === 'NEC TEAM' ? 'NEC TEAM is getting ready for its public release on Android and iOS.' : `NEC TEAM is not publicly available on ${platform} yet.`} We’re putting the finishing touches on a clearer workday.</p><button className="button button-primary" autoFocus onClick={close}>Got it <Icon name="check" size={18} /></button><small>Internal and closed testing are invitation-only.</small></div></dialog>;
 }
 export default function App() {
   const cleanPath = () => {
