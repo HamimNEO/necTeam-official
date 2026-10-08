@@ -36,6 +36,8 @@ for (const [path, page] of Object.entries(pages)) {
   await mkdir(folder, {recursive:true});
   await writeFile(resolve(folder, 'index.html'), html(page));
 }
+await mkdir(resolve(root, 'public/api'), {recursive:true});
+await writeFile(resolve(root, 'public/api/policies.json'), JSON.stringify(pages, null, 2));
 const redirects = Object.keys(pages).map(path => `${path} ${path}/index.html 200`).join('\n');
 await writeFile(resolve(root, 'public/_redirects'), `${redirects}\n/* /index.html 200\n`);
-console.log('Created homepage, five readable policy/contact pages and public app assets.');
+console.log('Created homepage, five readable policy/contact pages, policies API, and public app assets.');
